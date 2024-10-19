@@ -9,7 +9,7 @@ This is social media application built using django and html ,bootstrap
 ## Screenshots
 
 Here's how the project looks:
-<img src="demo_pictures/home_page.jpeg" alt="Home page" width="500" height="800"/>
+<img src="demo_pictures/home_page.jpeg" alt="Home page" width="600"/>
 <img src="demo_pictures/login.jpeg" alt="Login page" width="500"/>
 <img src="demo_pictures/signup.jpeg" alt="SignUp page" width="500"/>
 
