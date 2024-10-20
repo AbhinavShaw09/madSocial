@@ -12,8 +12,8 @@ Here's how the project looks:
 
 <img src="demo_pictures/home_page3.jpeg" alt="Home page" width="700"/>
 <img src="demo_pictures/create_post2.jpeg" alt="Creat Post page" width="700"/>
-<img src="demo_pictures/login1.jpeg" alt="Login page" width="500"/>
-<img src="demo_pictures/signup2.jpeg" alt="SignUp page" width="500"/>
+<img src="demo_pictures/login1.jpeg" alt="Login page" width="700"/>
+<img src="demo_pictures/signup2.jpeg" alt="SignUp page" width="700"/>
 
 
 
