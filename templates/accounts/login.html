@@ -33,7 +33,14 @@
             <h2>Login</h2>
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p|safe }} <!-- Use safe to render HTML properly -->
+                <div class="form-group mb-3 d-flex flex-column">
+                    <label for="username">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group mb-3 d-flex flex-column">
+                    <label for="password">Password</label>
+                    {{ form.password }}
+                </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
             <div class="text-center mt-3">

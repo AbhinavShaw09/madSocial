@@ -1,24 +1,42 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,  get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Post
 from .forms import PostForm
 
-@login_required  # Ensure the user is logged in before creating a post
+@login_required  
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)  # Create post instance without saving to the database yet
-            post.author = request.user  # Set the author to the logged-in user (optional)
-            post.save()  # Now save the post to the database
-            return redirect('list_post')  # Redirect to a list of posts after successful creation
+            post = form.save(commit=False)  
+            post.created_by = request.user 
+            post.save()  
+            return redirect('list_post')  
     else:
         form = PostForm()
     
     return render(request, 'posts/create_post.html', {'form': form})
 
-@login_required  # Ensure the user is logged in before accessing posts
+@login_required  
 def home_view(request):
-    print("User is authenticated:", request.user.is_authenticated)
-    posts = Post.objects.all()  # Fetch all posts from the database
+    posts = Post.objects.all()  
     return render(request, 'posts/post.html', {'posts': posts})
+
+@login_required
+def single_post_view(request, post_id):
+    if request.method == 'GET':
+        post = get_object_or_404(Post, id=post_id)
+        return render(request, 'posts/single_post.html', {'post': post})
+     
+    if request.method == 'POST':
+        return redirect('list_post')
+    
+@login_required 
+def delete_single_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)  
+    if request.method == 'POST':
+        print("Deleting post:", post.id)  
+        post.delete()  
+        return redirect('list_post') 
+    else:
+        return redirect('list_post') 
