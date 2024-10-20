@@ -5,19 +5,19 @@
             <h1>{{ post.title }}</h1>
             <hr class="my-4" style="height: 2px; border-width: 0; background-color: black;" />
             <p>{{ post.content }}</p>
-            <hr>
-            <p>Created by: {{ post.created_by.username }} on {{ post.created_at }}</p>
+            <hr class="my-4" style="height: 2px; border-width: 0; background-color: black;" />
+            <p>Created by: <a href="{% url 'user_profile' post.created_by.id %}">{{ post.created_by.username }}</a> on
+                {{ post.created_at }}</p>
             <hr class="my-4" style="height: 2px; border-width: 0; background-color: black;" />
             {% if post.created_by.id == user.id %}
             <div class="d-flex align-items-center justify-content-between">
                 <form action="{% url 'delete_post' post.id %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger my-3">Delete Post</button>
-                </form>   
+                </form>
                 {% endif %}
                 <a href="{% url 'list_post' %}">Back to posts</a>
             </div>
-           
         </div>
     </div>
 </div>

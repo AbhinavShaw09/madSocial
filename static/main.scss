@@ -1,0 +1,48 @@
+// Define your custom variables
+$warning: #96C9F4;
+$body-color: #FAFFAF;
+$text-color: black;
+
+// Import Bootstrap's SCSS
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+//Custom styles can go here
+
+body {
+    background-color: $body-color;
+    color: $text-color !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $text-color !important; // Set the color for headings
+}
+  
+p {
+    color: $text-color !important; // Set the color for paragraphs
+}
+
+/* For input and textarea elements */
+::placeholder {
+    color: black !important; /* Change the color of the placeholder text */
+  }
+  
+  /* For browsers that support vendor prefixes */
+  ::-webkit-input-placeholder { /* Safari and Chrome */
+    color: black !important;
+  }
+  
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: black !important;
+  }
+  
+  :-ms-input-placeholder { /* IE 10+ */
+    color: black !important;
+  }
+  
+  :-moz-placeholder { /* Firefox 18- */
+    color: black !important;
+  }
+  
+input, textarea ,label{
+    color: black !important;
+}

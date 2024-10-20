@@ -1,6 +1,6 @@
 # MadSocial
 
-This is social media application built using django and html ,bootstrap
+This is social media application built using django, html and bootstrap
 
 ## Features
 - user can login and register, update their data 
@@ -10,10 +10,10 @@ This is social media application built using django and html ,bootstrap
 
 Here's how the project looks:
 
-<img src="demo_pictures/home_page2.jpeg" alt="Home page" width="700"/>
-<img src="demo_pictures/create_post.jpeg" alt="Creat Post page" width="700"/>
-<img src="demo_pictures/login.jpeg" alt="Login page" width="500"/>
-<img src="demo_pictures/signup.jpeg" alt="SignUp page" width="500"/>
+<img src="demo_pictures/home_page3.jpeg" alt="Home page" width="700"/>
+<img src="demo_pictures/create_post2.jpeg" alt="Creat Post page" width="700"/>
+<img src="demo_pictures/login1.jpeg" alt="Login page" width="500"/>
+<img src="demo_pictures/signup2.jpeg" alt="SignUp page" width="500"/>
 
 
 

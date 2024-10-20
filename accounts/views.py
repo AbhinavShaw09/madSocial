@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,  get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from .forms import UserRegistrationForm, UserLoginForm, UserEditsForm
+from django.contrib.auth.decorators import login_required
 
 
 def signup_view(request):
@@ -8,11 +10,11 @@ def signup_view(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data["password"])  # Hash the password
+            user.set_password(form.cleaned_data["password"])  
             user.save()
             return redirect(
                 "login"
-            )  # Redirect to login page after successful registration
+            )  
     else:
         form = UserRegistrationForm()
     return render(request, "accounts/signup.html", {"form": form})
@@ -29,22 +31,18 @@ def login_view(request):
                 login(request, user)
                 return redirect(
                     "list_post"
-                )  # Redirect to home page after successful login
+                ) 
     else:
         form = UserLoginForm()
     return render(request, "accounts/login.html", {"form": form})
 
-
+@login_required 
 def logout_view(request):
-    logout(request)  # Logout the user
-    return redirect("login")  # Redirect to login page after logout
+    logout(request) 
+    return redirect("login")  
 
 
-def user_details_view(request):
-    user = request.user
-    return render(request, "accounts/user_details.html", {"user": user})
-
-
+@login_required 
 def edit_profile_view(request):
     if request.method == "POST":
         form = UserEditsForm(request.POST, instance=request.user)
@@ -55,3 +53,12 @@ def edit_profile_view(request):
     if request.method == 'GET':
         form = UserEditsForm(instance=request.user)
         return render(request, "accounts/edit_profile.html", {"form": form})
+
+@login_required 
+def user_profile_view(request, id=None):
+    if request.method == 'GET':
+        if id == None:
+             user = request.user
+        else:
+            user = get_object_or_404(User, id=id)
+    return render(request,"accounts/user_details.html",{"user":user})
