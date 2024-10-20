@@ -1,0 +1,18 @@
+{% extends 'layout/layout.html' %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center mt-5">
+    <h1>User Profile</h1>
+    <div class="card my-3" style="width: 18rem;">
+        <div class="card-body text-center">
+            <h5 class="card-title mt-3">Username: {{ user.username }}</h5>
+            <p class="card-text">Email: {{ user.email }}</p>
+            <p class="card-text">Firsname: {{ user.first_name }}</p>
+            <p class="card-text">Lastname: {{ user.last_name }}</p>
+            <form action="{% url 'edit_profile' %}" method="get">
+                <button type="submit" class="btn btn-primary mt-3">Edit Profile</button>
+            </form>          
+        </div>
+    </div>
+</div>
+{% endblock %}
