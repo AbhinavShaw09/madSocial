@@ -12005,4 +12005,13 @@ p {
 
 input, textarea, label {
   color: black !important;
+}
+
+nav {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  background-color: whitesmoke;
 }/*# sourceMappingURL=main.css.map */
