@@ -1,11 +1,43 @@
 {% extends 'layout/layout.html' %} {% block content %}
 <div class="d-flex flex-column align-items-center">
-    <div class="card my-3 w-50 border border-3 border-black rounded-5">
+    <div class="card my-2 w-50 border border-2 border-black rounded-5">
         <div class="card-body">
-            <h4 class="fw-bold">{{ post.title }}</h4>
+            <div class="d-flex align-items-center justify-content-between">
+                <h4 class="fw-bold">{{ post.title }}</h4>
+                {% if post.created_by.id == user.id %}
+                <button class="btn p-0 dropdown-toggle" style="background: none; border: none; margin-right: 5px"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-three-dots"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
+                    </svg>
+                </button>
+                <ul class="dropdown-menu" style="background-color: black;">
+                   
+                    <form action="{% url 'delete_post' post.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="dropdown-button"
+                            style="background-color: black; color: white; border: none; text-align: center; margin-left: 30px;">
+                            Delete Post
+                        </button>
+                    </form>
+                    <form action="{% url 'edit_post' post.id %}" method="update">
+                        {% csrf_token %}
+                        <button type="submit" class="dropdown-button"
+                            style="background-color: black; color: white; border: none; text-align: center; margin-left: 30px;">
+                            Edit Post
+                        </button>
+                    </form>
+                </ul>
+                {% endif %}
+            </div>
             <p>{{ post.content }}</p>
-            <p>Created by: <a href="{% url 'user_profile' post.created_by.id %}">{{ post.created_by.username }}</a> on
-                {{ post.created_at }}</p>
+            <p>
+                <b>Created by:</b>
+                <a href="{% url 'user_profile' post.created_by.id %}">{{ post.created_by.username }}</a>
+                <b>on</b> {{ post.created_at }}
+            </p>
             {% if post.created_by.id == user.id %}
             <div class="d-flex align-items-center justify-content-between">
                 <form action="{% url 'delete_post' post.id %}" method="post">

@@ -11,8 +11,9 @@ urlpatterns = [
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
     path("profile/", user_profile_view, name="user_details"),
-    path("profile/<int:id>", user_profile_view, name="user_profile"),
+    path("profile/<int:id>/", user_profile_view, name="user_profile"),
     path("edit_profile/", edit_profile_view, name="edit_profile"),
     path("post/<int:post_id>/", single_post_view, name="single_post"),
-    path("post/<int:post_id>/delete",delete_single_post, name="delete_post")
+    path("post/<int:post_id>/delete/", delete_single_post, name="delete_post"),
+    path("post/<int:post_id>/edit/", edit_post, name="edit_post"),
 ]

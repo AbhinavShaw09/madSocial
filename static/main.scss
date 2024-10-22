@@ -1,6 +1,6 @@
 // Define your custom variables
-$warning: #96C9F4;
-$body-color: #FAFFAF;
+$warning: #0D92F4;
+$body-color: #F5F4B3;
 $text-color: black;
 
 // Import Bootstrap's SCSS
@@ -49,9 +49,21 @@ input, textarea ,label{
 
 nav{
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    border-bottom: 2px solid black;
+}
+
+footer{
+    border-top: 2px solid black;
 }
 
 .hover-shadow:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: rgba(245, 245, 245, 0.904);
 }
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+
+
