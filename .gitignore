@@ -13,7 +13,7 @@ env3.9/
 build/
 develop-eggs/
 dist/
-downloads/
+downloads/s
 eggs/
 lib/
 lib64/
