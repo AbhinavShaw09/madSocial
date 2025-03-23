@@ -15,12 +15,17 @@
         max-width: 400px; /* Max width for form */
         margin: 50px auto; /* Centering */
         padding: 50px; /* Padding around the form */
-        background-color: #ffffff; /* White background for the form */
+        background-color: #EDDCD9; /* White background for the form */
         border-radius: 8px; /* Rounded corners */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        box-shadow: 3px 4px 0px 1px #E99F4C; /* Subtle shadow */
       }
       h2 {
         margin-bottom: 20px; /* Spacing below heading */
+        color: #264143 !important;;
+        font-weight: bold;
+      }
+      .input-container{
+            box-shadow: 3px 4px 0px 1px #E99F4C; /* Subtle shadow */
       }
     </style>
   </head>
@@ -31,21 +36,20 @@
         <h2 class="text-center">Signup</h2>
         <form method="post">
           {% csrf_token %}
-          <div class="form-group mb-3 d-flex flex-column">
-            <label for="username">Username:</label>
+          <label for="username">Username:</label>
+          <div class="input-container form-group mb-3 d-flex flex-column">
             {{ form.username }}
         </div>
-          <div class="form-group mb-3 d-flex flex-column">
-            <label for="email">Email Address:</label>
+        <label for="email">Email Address:</label>
+          <div class="input-container form-group mb-3 d-flex flex-column">
             {{ form.email }}
         </div>
-    
-          <div class="form-group mb-3 d-flex flex-column">
-            <label for="password">Password:</label>
+          <label for="password">Password:</label>
+          <div class="input-container form-group mb-3 d-flex flex-column">
             {{ form.password }}
         </div>
-        <div class="form-group mb-3 d-flex flex-column">
-          <label for="password_confirmation">Confirm Password:</label>
+        <label for="password_confirmation">Confirm Password:</label>
+        <div class="input-container form-group mb-3 d-flex flex-column">   
           {{ form.password_confirmation }}
       </div>
           <button type="submit" class="btn btn-primary w-100">Register</button>
