@@ -1,27 +1,28 @@
-<nav class="navbar navbar-expand-lg bg-warning fixed-top fw-bold">
+<nav class="navbar bg-warning fixed-top fw-bold">
     <div class="container-fluid">
-        <a class="navbar-brand mx-5" href="{% url 'list_post' %}">MadSocio</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end mx-5" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'list_post' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'create_post' %}">Create Post</a>
-                </li>
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a href="{% url 'user_details' %}" class="nav-link active">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
-                </li>
-                {% endif %}
-            </ul>
+      <a class="navbar-brand mx-5" href="{% url 'list_post' %}">MadSocio</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="offcanvas offcanvas-end text-bg-warning" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel" style="border: 2px solid black !important; background-color: #0D92F4 !important; color: black !important; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;">
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'list_post' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'create_post' %}">Add Post</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'user_details' %}" class="nav-link active">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </div>
-</nav>
+  </nav>
