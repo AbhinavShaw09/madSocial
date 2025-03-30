@@ -9,12 +9,11 @@
                 <h6 class="card-title">{{ post.created_by }}</h6>
                 <h4 class="card-title fw-bold">{{ post.title }}</h4>
                 <p class="card-text">{{ post.content }}</p>
-                {% if post.created_by.id == user.id %}
-                <form action="{% url 'delete_post' post.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger my-3">Delete Post</button>
-                </form>
-                {% endif %}
+                <div class="mx-2 d-flex align-items-center gap-2">
+                    <div>👍</div>
+                    <div>💬</div>
+                </div>
+                
             </div>
         </a>
     </div>

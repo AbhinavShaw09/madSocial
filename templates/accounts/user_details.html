@@ -1,23 +1,34 @@
-{% extends 'layout/layout.html' %}
-
-{% block content %}
+{% extends 'layout/layout.html' %} {% block content %}
 <div class="d-flex flex-column align-items-center mt-5">
-    <h1>User Profile</h1>
-    <div class="card my-3 border border-2 border-black rounded-5" style="width: 24rem;">
-        <div class="card-body text-center ">
-            <h5 class="card-title mt-3">Username: {{ user.username }}</h5>
-            <hr class="my-4" style="height: 2px; border-width: 0; background-color: black;" />
-            <p class="card-text">Email: {{ user.email }}</p>
-            <p class="card-text">Firsname: {{ user.first_name }}</p>
-            <p class="card-text">Lastname: {{ user.last_name }}</p>
-            <hr class="my-4" style="height: 2px; border-width: 0; background-color: black;" />
-            {% if request.user.id == user.id%}
-            <form action="{% url 'edit_profile' %}" method="get">
-                <button type="submit" class="btn btn-primary my-3">Edit Profile</button>
-            </form>
-            {% endif %}
-            <a href="{% url 'list_post' %}">Back to posts</a>
-        </div>
+  <h1 class="fw-bold">User Profile</h1>
+  <div
+    class="card my-3 border border-2 border-black rounded-5"
+    style="width: 24rem"
+  >
+    <div class="card-body text-center">
+      <div class="">
+        <h5 class="card-title mt-3 fw-bold">👤 {{ user.username }}</h5>
+      </div>
+      <div class="m-3">
+        <p class="card-text">📧mail : {{ user.email }}</p>
+        <p class="card-text">Firsname: {{ user.first_name }}</p>
+        <p class="card-text">Lastname: {{ user.last_name }}</p>
+      </div>
+      <div class="d-flex align-items-center justify-content-md-evenly">
+        {% if request.user.id == user.id%}
+        <form action="{% url 'edit_profile' %}" method="get">
+          <button type="submit" class="btn btn-primary my-3">
+            Edit Profile
+          </button>
+        </form>
+        {% endif %}
+        <form action="{% url 'list_post' %}" method="get">
+          <button type="submit" class="btn btn-primary my-3">
+            Back to posts
+          </button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
