@@ -10,24 +10,19 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.8, 3.9]
-
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: '3.12'
 
     - name: Install Poetry
       uses: abatilo/actions-poetry@v2
 
     - name: Install dependencies
-      run: poetry install
+      run: poetry install --no-root
 
     - name: Run Tests
       run: poetry run python manage.py test
