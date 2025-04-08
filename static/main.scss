@@ -66,5 +66,107 @@ footer{
     display: none !important;
 }
 
+// Add these styles to ensure comment text is black
+.card-body {
+    .text-muted {
+        color: black !important;
+    }
+    
+    p, small, h6 {
+        color: black !important;
+    }
+}
 
+// Ensure comment form text is black
+textarea.form-control {
+    color: black !important;
+    
+    &::placeholder {
+        color: black !important;
+    }
+}
+
+// Ensure post card text is black
+.card {
+    a {
+        color: black !important;
+        
+        &:hover {
+            color: black !important;
+        }
+    }
+    
+    .card-title, 
+    .card-text, 
+    .text-black {
+        color: black !important;
+    }
+}
+
+// Ensure alert text is black
+.alert {
+    color: black !important;
+}
+
+// Modal styles
+.modal-content {
+    background-color: $body-color;
+    
+    .modal-header {
+        border-bottom-color: black;
+        
+        .modal-title {
+            color: black !important;
+            font-weight: bold;
+        }
+        
+        .btn-close {
+            color: black !important;
+            
+            &:hover {
+                opacity: 0.75;
+            }
+        }
+    }
+    
+    .modal-body {
+        color: black !important;
+    }
+    
+    .modal-footer {
+        border-top-color: black;
+    }
+}
+
+// Custom button styles for modals
+.modal {
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: white;
+        
+        &:hover {
+            background-color: #bb2d3b;
+            border-color: #b02a37;
+        }
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: white;
+        
+        &:hover {
+            background-color: #5c636a;
+            border-color: #565e64;
+        }
+    }
+}
+
+// Responsive modal
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+}
 

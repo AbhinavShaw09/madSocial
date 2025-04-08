@@ -4,21 +4,23 @@
 <div class="d-flex flex-column align-items-center">
     {% for post in posts %}
     <div class="card my-2 w-50 border border-2 border-black rounded-5 hover-shadow">
-        <a href="{% url 'single_post' post.id %}" class="text-decoration-none text-reset">
+        <a href="{% url 'single_post' post.id %}" class="text-decoration-none">
             <div class="card-body">
-                <h6 class="card-title">{{ post.created_by }}</h6>
-                <h4 class="card-title fw-bold">{{ post.title }}</h4>
-                <p class="card-text">{{ post.content }}</p>
+                <h6 class="card-title text-black">{{ post.created_by }}</h6>
+                <h4 class="card-title fw-bold text-black">{{ post.title }}</h4>
+                <p class="card-text text-black">{{ post.content }}</p>
                 <div class="mx-2 d-flex align-items-center gap-2">
-                    <div>👍</div>
-                    <div>💬</div>
+                    <div class="text-black">👍</div>
+                    <div class="d-flex align-items-center text-black">
+                        <span>💬</span>
+                        <span class="ms-1">{{ post.comments.count }}</span>
+                    </div>
                 </div>
-                
             </div>
         </a>
     </div>
     {% empty %}
-    <div class="alert alert-info">No posts available.</div>
+    <div class="alert alert-info text-black">No posts available.</div>
     {% endfor %}
 </div>
 {% endblock %}

@@ -16,4 +16,6 @@ urlpatterns = [
     path("post/<int:post_id>/", single_post_view, name="single_post"),
     path("post/<int:post_id>/delete/", delete_single_post, name="delete_post"),
     path("post/<int:post_id>/edit/", edit_post, name="edit_post"),
+    path("post/<int:post_id>/comment/<int:comment_id>/edit/", edit_comment, name="edit_comment"),
+    path("post/<int:post_id>/comment/<int:comment_id>/delete/", delete_comment, name="delete_comment"),
 ]
