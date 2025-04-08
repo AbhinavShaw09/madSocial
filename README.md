@@ -5,6 +5,7 @@ This is social media application built using django, html and bootstrap
 ## Stories
 - user can login and register, update their data 
 - user can create,read,update,delete posts
+- user can create,read,update,delete comements on a post 
 - user cannot update or delete the post of another user 
 
 ## Screenshots
