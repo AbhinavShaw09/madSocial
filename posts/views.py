@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 
@@ -21,8 +23,10 @@ def create_post(request):
 
 @login_required
 def home_view(request):
-    posts = Post.objects.all()
-    return render(request, "posts/post.html", {"posts": posts})
+    posts = Post.objects.all().order_by('-created_at')
+    return render(request, "posts/post.html", {
+        "posts": posts,
+    })
 
 
 @login_required
@@ -30,6 +34,14 @@ def single_post_view(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     comments = post.comments.all().order_by('-created_at')
     comment_form = CommentForm()
+
+    context = {
+        "post": post,
+        "comments": comments,
+        "comment_form": comment_form,
+        "user_liked_post": request.user in post.likes.all(),
+        "user_liked_comments": [comment.id for comment in comments if request.user in comment.likes.all()]
+    }
 
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
@@ -40,11 +52,7 @@ def single_post_view(request, post_id):
             comment.save()
             return redirect('single_post', post_id=post_id)
 
-    return render(request, "posts/single_post.html", {
-        "post": post,
-        "comments": comments,
-        "comment_form": comment_form
-    })
+    return render(request, "posts/single_post.html", context)
 
 
 @login_required
@@ -94,3 +102,37 @@ def delete_comment(request, post_id, comment_id):
     if request.method == "POST":
         comment.delete()
     return redirect('single_post', post_id=post_id)
+
+
+@login_required
+@require_POST
+def like_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+        liked = False
+    else:
+        post.likes.add(request.user)
+        liked = True
+    
+    return JsonResponse({
+        'likes_count': post.likes.count(),
+        'liked': liked
+    })
+
+
+@login_required
+@require_POST
+def like_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if request.user in comment.likes.all():
+        comment.likes.remove(request.user)
+        liked = False
+    else:
+        comment.likes.add(request.user)
+        liked = True
+    
+    return JsonResponse({
+        'likes_count': comment.likes.count(),  # Use direct count instead of method
+        'liked': liked
+    })

@@ -4,23 +4,61 @@
 <div class="d-flex flex-column align-items-center">
     {% for post in posts %}
     <div class="card my-2 w-50 border border-2 border-black rounded-5 hover-shadow">
-        <a href="{% url 'single_post' post.id %}" class="text-decoration-none">
-            <div class="card-body">
+        <div class="card-body">
+            <!-- Wrap only the content that should be clickable in the link -->
+            <a href="{% url 'single_post' post.id %}" class="text-decoration-none">
                 <h6 class="card-title text-black">{{ post.created_by }}</h6>
                 <h4 class="card-title fw-bold text-black">{{ post.title }}</h4>
                 <p class="card-text text-black">{{ post.content }}</p>
-                <div class="mx-2 d-flex align-items-center gap-2">
-                    <div class="text-black">👍</div>
-                    <div class="d-flex align-items-center text-black">
-                        <span>💬</span>
-                        <span class="ms-1">{{ post.comments.count }}</span>
-                    </div>
+            </a>
+            <div class="mx-2 d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center">
+                    <!-- Separate like button from the link -->
+                    <form class="like-post-form" data-post-id="{{ post.id }}" method="POST" action="{% url 'like_post' post.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn p-0" style="background: none; border: none;">
+                            {% if post in user.post_likes.all %}
+                            <span class="like-icon">❤️</span>
+                            {% else %}
+                            <span class="like-icon">🤍</span>
+                            {% endif %}
+                        </button>
+                    </form>
+                    <span class="ms-1 like-count text-black">{{ post.total_likes }}</span>
+                </div>
+                <div class="d-flex align-items-center text-black">
+                    <span>💬</span>
+                    <span class="ms-1">{{ post.comments.count }}</span>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
-    {% empty %}
-    <div class="alert alert-info text-black">No posts available.</div>
     {% endfor %}
 </div>
+
+<script>
+document.querySelectorAll('.like-post-form').forEach(form => {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const url = form.getAttribute('action');
+        const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const likeIcon = form.querySelector('.like-icon');
+            likeIcon.textContent = data.liked ? '❤️' : '🤍';
+            const likeCount = form.closest('.d-flex').querySelector('.like-count');
+            likeCount.textContent = data.likes_count;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+</script>
 {% endblock %}

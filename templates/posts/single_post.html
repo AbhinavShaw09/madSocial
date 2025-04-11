@@ -1,7 +1,7 @@
-{% extends 'layout/layout.html' %} 
+{% extends 'layout/layout.html' %}
 {% block content %}
 <div class="d-flex flex-column align-items-center">
-    <!-- Existing post card -->
+    <!-- Post card -->
     <div class="card my-2 w-50 border border-2 border-black rounded-5">
         <div class="card-body">
             <div class="d-flex align-items-center justify-content-between">
@@ -43,6 +43,25 @@
                     Back to posts
                 </button>
             </form>
+            <div class="d-flex align-items-center gap-3 mt-2">
+                <div class="d-flex align-items-center">
+                    <form class="like-post-form" data-post-id="{{ post.id }}" method="POST" action="{% url 'like_post' post.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn p-0" style="background: none; border: none;">
+                            {% if user_liked_post %}
+                            <span class="like-icon">❤️</span>
+                            {% else %}
+                            <span class="like-icon">🤍</span>
+                            {% endif %}
+                        </button>
+                    </form>
+                    <span class="ms-1 like-count text-black">{{ post.total_likes }}</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span>💬</span>
+                    <span class="ms-1 text-black">{{ post.comments.count }}</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -82,6 +101,19 @@
                     </div>
                     <p class="mb-1 text-black">{{ comment.content }}</p>
                     <small class="text-black">{{ comment.created_at }}</small>
+                    <div class="d-flex align-items-center mt-2">
+                        <form class="like-comment-form" data-comment-id="{{ comment.id }}" method="POST" action="{% url 'like_comment' comment.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn p-0" style="background: none; border: none;">
+                                {% if comment.id in user_liked_comments %}
+                                <span class="like-icon">❤️</span>
+                                {% else %}
+                                <span class="like-icon">🤍</span>
+                                {% endif %}
+                            </button>
+                        </form>
+                        <span class="ms-1 like-count text-black">{{ comment.total_likes }}</span>
+                    </div>
                 </div>
             </div>
 
@@ -132,4 +164,60 @@
         </div>
     </div>
 </div>
+<script>
+// Like post functionality
+const handleLikePost = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const url = form.getAttribute('action');
+    const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const likeIcon = form.querySelector('.like-icon');
+        likeIcon.textContent = data.liked ? '❤️' : '🤍';
+        const likeCount = form.closest('.d-flex').querySelector('.like-count');
+        likeCount.textContent = data.likes_count;
+    })
+    .catch(error => console.error('Error:', error));
+};
+
+// Like comment functionality
+const handleLikeComment = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const url = form.getAttribute('action');
+    const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const likeIcon = form.querySelector('.like-icon');
+        likeIcon.textContent = data.liked ? '❤️' : '🤍';
+        const likeCount = form.closest('.d-flex').querySelector('.like-count');
+        likeCount.textContent = data.likes_count;
+    })
+    .catch(error => console.error('Error:', error));
+};
+
+// Add event listeners
+document.querySelectorAll('.like-post-form').forEach(form => {
+    form.addEventListener('submit', handleLikePost);
+});
+
+document.querySelectorAll('.like-comment-form').forEach(form => {
+    form.addEventListener('submit', handleLikeComment);
+});
+</script>
 {% endblock %}
